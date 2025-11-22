@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Blockchain Project Report</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1>📖 Project Documentation</h1>
+            <p class="subtitle">Complete Technical Report</p>
+            <a href="index.html" class="btn btn-secondary">← Back to Home</a>
+        </header>
+
+        <div class="report-content">
+            <h1>MINI BLOCKCHAIN PROJECT REPORT</h1>
+            <p style="text-align: center; font-style: italic;">Unit II - Blockchain Technology Implementation</p>
+
+            <h2>1. Introduction</h2>
+            <p>This project demonstrates a complete blockchain implementation using only frontend technologies: HTML, CSS, and JavaScript. The system runs entirely in the browser without requiring any backend infrastructure, making it perfect for educational purposes and understanding blockchain fundamentals.</p>
+
+            <p>The implementation includes all core blockchain concepts: block creation, cryptographic hashing, proof-of-work mining, digital signatures, and chain validation. Students can interact with the system to understand how each component works together to create a secure, immutable ledger.</p>
+
+            <h2>2. What is Blockchain?</h2>
+            <p>A blockchain is a distributed ledger technology that maintains a continuously growing list of records (blocks) that are linked and secured using cryptography. Each block contains:</p>
+            <ul>
+                <li><strong>Data:</strong> Transactions or information stored in the block</li>
+                <li><strong>Hash:</strong> A unique digital fingerprint of the block's contents</li>
+                <li><strong>Previous Hash:</strong> The hash of the previous block, creating the "chain"</li>
+                <li><strong>Timestamp:</strong> When the block was created</li>
+                <li><strong>Nonce:</strong> A number used in the mining process</li>
+            </ul>
+
+            <h2>3. Purpose of the Mini Blockchain</h2>
+            <p>This educational blockchain serves multiple purposes:</p>
+            <ul>
+                <li><strong>Learning Tool:</strong> Understand blockchain concepts through hands-on interaction</li>
+                <li><strong>Demonstration:</strong> Show how blocks are linked and validated</li>
+                <li><strong>Security Education:</strong> Demonstrate how tampering is detected</li>
+                <li><strong>Cryptography Practice:</strong> Learn about hashing and digital signatures</li>
+                <li><strong>Mining Simulation:</strong> Experience proof-of-work consensus mechanism</li>
+            </ul>
+
+            <h2>4. Block Structure Explanation</h2>
+            <p>Each block in our blockchain contains the following components:</p>
+
+            <div class="diagram">
+┌─────────────────────────────────────┐
+│              BLOCK                  │
+├─────────────────────────────────────┤
+│ Index: 1                            │
+│ Timestamp: 2024-01-15T10:30:00Z     │
+│ Previous Hash: 000abc123...         │
+│ Current Hash: 000def456...          │
+│ Nonce: 45231                        │
+│ Transactions: [                     │
+│   {                                 │
+│     from: "Alice",                  │
+│     to: "Bob",                      │
+│     amount: 50,                     │
+│     signature: "xyz789..."          │
+│   }                                 │
+│ ]                                   │
+└─────────────────────────────────────┘
+            </div>
+
+            <p><strong>Index:</strong> Sequential number indicating the block's position in the chain</p>
+            <p><strong>Timestamp:</strong> ISO 8601 formatted date/time when the block was created</p>
+            <p><strong>Previous Hash:</strong> SHA-256 hash of the previous block, creating the chain link</p>
+            <p><strong>Current Hash:</strong> SHA-256 hash of all block data combined</p>
+            <p><strong>Nonce:</strong> Number incremented during mining to find a valid hash</p>
+            <p><strong>Transactions:</strong> Array of signed transactions included in this block</p>
+
+            <h2>5. Hashing (SHA-256) Explanation</h2>
+            <p>SHA-256 (Secure Hash Algorithm 256-bit) is a cryptographic hash function that produces a fixed-size 256-bit hash value. Key properties:</p>
+            <ul>
+                <li><strong>Deterministic:</strong> Same input always produces same output</li>
+                <li><strong>Fixed Size:</strong> Always produces 64-character hexadecimal string</li>
+                <li><strong>Avalanche Effect:</strong> Small input change drastically changes output</li>
+                <li><strong>One-Way:</strong> Computationally infeasible to reverse</li>
+                <li><strong>Collision Resistant:</strong> Extremely difficult to find two inputs with same hash</li>
+            </ul>
+
+            <div class="diagram">
+Input: "Hello World"
+SHA-256: a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e
+
+Input: "Hello World!"  (added exclamation)
+SHA-256: 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069
+
+Notice: Completely different hashes for similar inputs!
+            </div>
+
+            <h2>6. Proof-of-Work Explanation</h2>
+            <p>Proof-of-Work (PoW) is a consensus mechanism that requires computational effort to create new blocks. In our implementation:</p>
+
+            <ol>
+                <li><strong>Target Setting:</strong> Define difficulty (number of leading zeros required)</li>
+                <li><strong>Nonce Iteration:</strong> Start with nonce = 0</li>
+                <li><strong>Hash Calculation:</strong> Calculate block hash including current nonce</li>
+                <li><strong>Difficulty Check:</strong> Does hash start with required zeros?</li>
+                <li><strong>Success/Retry:</strong> If yes, block is mined. If no, increment nonce and repeat</li>
+            </ol>
+
+            <div class="diagram">
+Difficulty: 3 (need 3 leading zeros)
+Target: "000..."
+
+Attempt 1: nonce=0, hash=a1b2c3... ❌
+Attempt 2: nonce=1, hash=d4e5f6... ❌
+Attempt 3: nonce=2, hash=g7h8i9... ❌
+...
+Attempt 15847: nonce=15846, hash=000abc123... ✅ FOUND!
+            </div>
+
+            <p><strong>Why Proof-of-Work?</strong></p>
+            <ul>
+                <li>Makes tampering expensive (requires re-mining all subsequent blocks)</li>
+                <li>Provides network security through computational investment</li>
+                <li>Creates consensus without central authority</li>
+                <li>Adjustable difficulty maintains consistent block times</li>
+            </ul>
+
+            <h2>7. Digital Signatures Explanation</h2>
+            <p>Digital signatures ensure transaction authenticity and integrity using public-key cryptography:</p>
+
+            <div class="diagram">
+┌─────────────────┐    ┌─────────────────┐
+│   ALICE'S KEYS  │    │    TRANSACTION  │
+│                 │    │                 │
+│ Private Key ────┼────┤► Sign Hash      │
+│ Public Key      │    │  Signature ────┼──┐
+└─────────────────┘    └─────────────────┘  │
+                                            │
+┌─────────────────┐    ┌─────────────────┐  │
+│   BOB VERIFIES  │    │   VERIFICATION  │  │
+│                 │    │                 │  │
+│ Alice's Pub Key ├────┤► Verify ◄───────┼──┘
+│ Result: Valid ✅ │    │  Signature      │
+└─────────────────┘    └─────────────────┘
+            </div>
+
+            <p><strong>Process:</strong></p>
+            <ol>
+                <li><strong>Key Generation:</strong> Create ECDSA key pair (private/public)</li>
+                <li><strong>Transaction Creation:</strong> Alice creates transaction to Bob</li>
+                <li><strong>Signing:</strong> Alice signs transaction hash with her private key</li>
+                <li><strong>Broadcasting:</strong> Transaction + signature sent to network</li>
+                <li><strong>Verification:</strong> Network verifies signature using Alice's public key</li>
+            </ol>
+
+            <h2>8. System Architecture</h2>
+            <div class="diagram">
+┌─────────────────────────────────────────────────────────┐
+│                    BROWSER ENVIRONMENT                  │
+├─────────────────────────────────────────────────────────┤
+│  HTML (mini-blockchain.html)                            │
+│  ├── User Interface                                     │
+│  ├── Control Buttons                                    │
+│  └── Blockchain Visualization                           │
+├─────────────────────────────────────────────────────────┤
+│  JavaScript (app.js)                                    │
+│  ├── Block Class                                        │
+│  ├── Transaction Class                                  │
+│  ├── Blockchain Class                                   │
+│  └── UI Event Handlers                                 │
+├─────────────────────────────────────────────────────────┤
+│  Web Crypto API                                         │
+│  ├── SHA-256 Hashing                                   │
+│  ├── ECDSA Key Generation                              │
+│  └── Digital Signatures                                │
+└─────────────────────────────────────────────────────────┘
+            </div>
+
+            <h2>9. Key Features Implemented</h2>
+            <ul>
+                <li><strong>Genesis Block Creation:</strong> Initialize blockchain with first block</li>
+                <li><strong>Transaction Management:</strong> Create, sign, and verify transactions</li>
+                <li><strong>Mining System:</strong> Proof-of-Work with adjustable difficulty</li>
+                <li><strong>Chain Validation:</strong> Verify entire blockchain integrity</li>
+                <li><strong>Tampering Detection:</strong> Visual indication of invalid blocks</li>
+                <li><strong>Digital Signatures:</strong> ECDSA signing and verification</li>
+                <li><strong>Real-time Visualization:</strong> Live blockchain display</li>
+                <li><strong>Browser Console Logging:</strong> Mining progress and debug info</li>
+            </ul>
+
+
+
+            <h2>10. Security Features</h2>
+            <ul>
+                <li>Cryptographically secure hashing</li>
+                <li>Digital signature verification</li>
+                <li>Proof-of-Work consensus mechanism</li>
+                <li>Chain integrity validation</li>
+                <li>Tamper detection and visualization</li>
+            </ul>
+
+            <h2>11. Educational Value</h2>
+            <p>This project provides hands-on learning for:</p>
+            <ul>
+                <li><strong>Cryptography:</strong> Understanding hash functions and digital signatures</li>
+                <li><strong>Data Structures:</strong> Linked list implementation with cryptographic links</li>
+                <li><strong>Algorithms:</strong> Proof-of-Work mining algorithm</li>
+                <li><strong>Security:</strong> Immutability and tamper detection</li>
+                <li><strong>Blockchain Concepts:</strong> Decentralization, consensus, and validation</li>
+            </ul>
+
+            <h2>12. Limitations and Scope</h2>
+            <p><strong>Current Limitations:</strong></p>
+            <ul>
+                <li>Single-user system (no network/peer-to-peer)</li>
+                <li>In-memory storage (data lost on page refresh)</li>
+                <li>Simplified transaction model</li>
+                <li>Fixed mining difficulty</li>
+                <li>No wallet management system</li>
+            </ul>
+
+            <p><strong>Educational Scope:</strong></p>
+            <ul>
+                <li>Perfect for understanding blockchain fundamentals</li>
+                <li>Suitable for computer science students</li>
+                <li>Demonstrates core concepts without complexity</li>
+                <li>Interactive learning experience</li>
+                <li>No setup or installation required</li>
+            </ul>
+
+            <h2>13. Future Enhancements</h2>
+            <p>Potential improvements for advanced learning:</p>
+            <ul>
+                <li><strong>Persistence:</strong> Local storage or IndexedDB integration</li>
+                <li><strong>Networking:</strong> WebRTC peer-to-peer connections</li>
+                <li><strong>Advanced Transactions:</strong> Multi-signature and smart contracts</li>
+                <li><strong>Wallet System:</strong> Key management and balance tracking</li>
+                <li><strong>Mining Pool:</strong> Collaborative mining simulation</li>
+                <li><strong>Alternative Consensus:</strong> Proof-of-Stake implementation</li>
+                <li><strong>Visualization:</strong> Network topology and transaction flow</li>
+                <li><strong>Performance:</strong> Web Workers for background mining</li>
+            </ul>
+
+            <h2>14. Conclusion</h2>
+            <p>This Mini Blockchain project successfully demonstrates all fundamental blockchain concepts using only frontend technologies. Students can interact with the system to understand how blocks are created, linked, mined, and validated. The implementation provides a solid foundation for understanding more complex blockchain systems like Bitcoin and Ethereum.</p>
+
+            <p>The project achieves its educational objectives by:</p>
+            <ul>
+                <li>Providing hands-on experience with blockchain technology</li>
+                <li>Demonstrating cryptographic concepts in practice</li>
+                <li>Showing how immutability is achieved through hashing</li>
+                <li>Illustrating the importance of consensus mechanisms</li>
+                <li>Enabling experimentation with tampering and validation</li>
+            </ul>
+
+            <p>The clean, well-commented code serves as an excellent reference for students learning blockchain development, while the interactive interface makes complex concepts accessible and engaging.</p>
+
+            <div style="text-align: center; margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                <h3>🎓 Project Completed Successfully</h3>
+                <p><em>A complete blockchain implementation.</em></p>
+                <p style="text-align: right;">By- Yash Biware EN24CS3T10024</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

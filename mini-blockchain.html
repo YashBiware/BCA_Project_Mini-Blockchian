@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Blockchain Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1>🔗 Mini Blockchain Demo</h1>
+            <p class="subtitle">Interactive Blockchain Implementation</p>
+            <a href="index.html" class="btn btn-secondary">← Back to Home</a>
+        </header>
+
+        <div class="blockchain-container">
+            <!-- Status Messages -->
+            <div id="status" class="status"></div>
+            
+            <!-- Mining Animation -->
+            <div id="miningAnimation" class="mining-animation" style="display: none;">
+                <div class="mining-visual">
+                    <div class="mining-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <p>⛏️ Mining Block...</p>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="controls">
+                <!-- Blockchain Controls -->
+                <div class="control-group">
+                    <h3>🔧 Blockchain Controls</h3>
+                    <button onclick="createGenesisBlock()" class="btn btn-primary">Create Genesis Block</button>
+                    <button onclick="validateBlockchain()" class="btn btn-secondary">Validate Blockchain</button>
+                    <button onclick="tamperWithBlock()" class="btn" style="background: #e74c3c; color: white;">Tamper Block (Demo)</button>
+                </div>
+
+                <!-- Transaction Form -->
+                <div class="control-group">
+                    <h3>💰 Create Transaction</h3>
+                    <div class="form-group">
+                        <label for="sender">Sender Address:</label>
+                        <input type="text" id="sender" placeholder="e.g., Alice">
+                    </div>
+                    <div class="form-group">
+                        <label for="receiver">Receiver Address:</label>
+                        <input type="text" id="receiver" placeholder="e.g., Bob">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" placeholder="e.g., 50" step="0.01">
+                    </div>
+                    <button onclick="addTransaction()" class="btn btn-primary">Add Transaction</button>
+                </div>
+
+                <!-- Digital Signature Info -->
+                <div class="control-group">
+                    <h3>🔐 Digital Signature</h3>
+                    <p><strong>Status:</strong> <span id="keyStatus">Generating...</span></p>
+                    <p><strong>Public Key:</strong></p>
+                    <p id="publicKey" style="font-family: monospace; font-size: 0.8rem; word-break: break-all;">Loading...</p>
+                    <button onclick="generateKeyPair()" class="btn btn-secondary">Generate New Keys</button>
+                </div>
+
+                <!-- Mining Info -->
+                <div class="control-group">
+                    <h3>⛏️ Mining Information</h3>
+                    <p><strong>Difficulty:</strong> 2 (requires 2 leading zeros)</p>
+                    <p><strong>Algorithm:</strong> SHA-256 Proof of Work</p>
+                    <p><strong>Reward:</strong> 100 coins per block</p>
+                    <p><em>Check browser console for mining progress!</em></p>
+                </div>
+            </div>
+
+            <!-- Blockchain Display -->
+            <div class="blockchain-section">
+                <h2>📊 Blockchain Visualization</h2>
+                <div id="blockchain" class="blockchain">
+                    <!-- Blocks will be displayed here -->
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="info-section">
+                <h2>🎓 How It Works</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h4>🔗 Block Linking</h4>
+                        <p>Each block contains the hash of the previous block, creating an immutable chain. If any block is modified, its hash changes and breaks the chain.</p>
+                    </div>
+                    <div class="feature">
+                        <h4>⛏️ Proof of Work</h4>
+                        <p>Mining requires finding a hash that starts with a specific number of zeros. This computational work secures the network against tampering.</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🔐 Digital Signatures</h4>
+                        <p>Transactions are signed with private keys and verified with public keys, ensuring authenticity and preventing forgery.</p>
+                    </div>
+                    <div class="feature">
+                        <h4>✅ Validation</h4>
+                        <p>The entire chain can be validated by checking each block's hash and its link to the previous block. Invalid blocks turn red!</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
